@@ -1,13 +1,20 @@
 # RealCam-Vid Dataset
 
-Current datasets for camera-controllable video generation face critical limitations that hinder the development of robust and versatile models. 
-Our curated dataset and data-processing pipeline uniquely combines **diverse scene dynamics** with **absolute-scale camera trajectories**, enabling generative models to learn both scene dynamics and camera motion in a unified framework.
+<div align="center">
+    <!-- <a href="https://arxiv.org/abs/2410.15957"><img src="https://img.shields.io/static/v1?label=arXiv&message=2410.15957&color=b21d1a"></a> -->
+    <a href="https://github.com/ZGCTroy/RealCam-Vid"><img src="https://img.shields.io/static/v1?label=GitHub&message=Repo&color=green"></a>
+    <a href="https://huggingface.co/datasets/MuteApo/RealCam-Vid"><img src="https://img.shields.io/static/v1?label=HuggingFace&message=Dataset&color=blue"></a>
+</div>
 
 ## News
 
-- 2025/02/18: Initial commit of the project, we plan to release the full dataset and data processing code in several weeks. DiT-based models (e.g., CogVideoX) trained on our dataset will be available at [RealCam-I2V](https://github.com/ZGCTroy/RealCam-I2V).
+- 25/03/26: Release our dataset [RealCam-Vid](https://huggingface.co/datasets/MuteApo/RealCam-Vid) v1 for metric-scale camera-controlled video generation, containing ~120K video clips with dedicated short/long captions and metric-scale camera annotations.
+- 25/02/18: Initial commit of the project, we plan to release the full dataset and data processing code in several weeks. DiT-based models (e.g., CogVideoX) trained on our dataset will be available at [RealCam-I2V](https://github.com/ZGCTroy/RealCam-I2V).
 
 ## Motivation
+
+Current datasets for camera-controllable video generation face critical limitations that hinder the development of robust and versatile models. 
+Our curated dataset and data-processing pipeline uniquely combines **diverse scene dynamics** with **metric-scale camera trajectories**, enabling generative models to learn both scene dynamics and camera motion in a unified framework.
 
 ### 1. Training Data Variation
 
@@ -33,7 +40,7 @@ Existing datasets for camera motions and scene dynamics suffer from **domain-spe
     - **Weaknesses**: Omit camera motion, limiting their utility for trajectory-based video generation.
 - **Dynamic Scene & Dynamic Camera datasets** (e.g., MiraData) 
     - **Strengths**: Exhibit rich real-world dynamics (moving objects + camera motion).
-    - **Weaknesses**: No absolute-scale camera annotations, making them unsuitable for metric-scale training.
+    - **Weaknesses**: No metric-scale camera annotations, making them unsuitable for metric-scale training.
 
 
 ### 2. Camera Pose Annotation
@@ -54,15 +61,15 @@ Our pipeline leverages [**MonST3R**](https://github.com/Junyi42/monst3r) to prov
 - In real-world videos, **dynamic foreground objects** (e.g., moving people, vehicles) introduce noise into the feature matching process. These objects create inconsistent feature tracks, leading to errors in camera pose estimation and 3D reconstruction.
 
 
-### 3. Absolute Scene Scale Alignment
+### 3. Metric Scene Scale Alignment
 
 <div align="center">
     <img src="https://github.com/user-attachments/assets/7f1d75a1-d291-48b7-bc37-3fa8dcc95a84">
 </div>
 
-Aligning camera trajectories to an absolute scale is critical when constructing datasets from heterogeneous sources (e.g., RealEstate10K, DL3DV, MiraData).
+Aligning camera trajectories to a metric scale is critical when constructing datasets from heterogeneous sources (e.g., RealEstate10K, DL3DV, MiraData).
 - **Cross-Dataset Compatibility**: Relative scales differ across datasets (e.g., "1 unit" in RealEstate10K ≠ "1 unit" in MiraData), causing misalignment and **scale ambiguity** in 3D reconstructions or motion priors.
-- **Real-World Applicability**: Absolute-scale alignment (e.g., meters) ensures consistency for training and evaluation, enabling models to learn **physically meaningful motion patterns** (e.g., velocity in m/s).
+- **Real-World Applicability**: Metric-scale alignment (e.g., meters) ensures consistency for training and evaluation, enabling models to learn **physically meaningful motion patterns** (e.g., velocity in m/s).
 - **Enhanced Physical Consistency**: Scene dimensions (e.g., room sizes, object heights) match real-world proportions, critical for tasks like 3D reconstruction or object interaction modeling as **geometric correctness**.
 
 ### Data Source
@@ -128,12 +135,27 @@ Aligning camera trajectories to an absolute scale is critical when constructing 
 #### RealEstate10K
 
 
+### Metadata Format
+
+We split our dataset into 2 split, namely train set (~120K) and test set (5K).
+The train/test metadata `npz` file contains a list of dicts with following key fields for each video clip:
+
+- `video_path`: relative path of the video clip with respect to the data root folder.
+- `short_caption`: short caption (<=77 tokens) provided by [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL), which is suitable for CLIP text encoders (U-Net based models).
+- `long_caption`: long caption (<=226 tokens) provided by [CogVLM2-Caption](https://github.com/THUDM/CogVideo/tree/main/tools/caption), which is suitable for T5 text encoders (DiT based models).
+- `camera_intrinsics`: quadruple of camera intrinsics in order of `fx`, `fy`, `cx`, `cy`, and their values are normalized by the corresponding `w`/`h` to accommodate varying video resolutions.
+- `camera_extrinsics`: 4x4 relative-scale world-to-camera (w2c) matrices under OpenCV/COLMAP camera convention.
+- `align_factor`: scale factor for w2c alignment from relative-scale to metric-scale.
+- `camera_scale`: maximum L2 distance across all camera positions of the video clip from the first frame.
+- `vtss_score`: Video Training Suitability Score measured by [Koala-36M](https://github.com/KwaiVGI/Koala-36M).
+
+
 ### Ethics Concerns
 
 All videos of RealCam-Vid dataset are sourced from public domains, and are intended solely for informational purposes only.
 The copyright remains with the original owners of the video.
 Our institution are not responsible for the content nor the meaning of these videos.
-If you have any concerns, please contact us at guangcongzheng@zju.edu.cn, and we will promptly remove them.
+If you have any concerns, please contact [us](mailto:guangcongzheng\@zju.edu.cn) and we will promptly remove them.
 
 
 ### Related Projects
