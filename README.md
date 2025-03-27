@@ -16,7 +16,7 @@
 Current datasets for camera-controllable video generation face critical limitations that hinder the development of robust and versatile models. 
 Our curated dataset and data-processing pipeline uniquely combines **diverse scene dynamics** with **metric-scale camera trajectories**, enabling generative models to learn both scene dynamics and camera motion in a unified framework.
 
-### 1. Training Data Variation
+### Training Data Variation
 
 <table>
     <tr>
@@ -43,7 +43,7 @@ Existing datasets for camera motions and scene dynamics suffer from **domain-spe
     - **Weaknesses**: No metric-scale camera annotations, making them unsuitable for metric-scale training.
 
 
-### 2. Camera Pose Annotation
+### Camera Pose Annotation
 
 <table>
     <tr>
@@ -61,7 +61,7 @@ Our pipeline leverages [**MonST3R**](https://github.com/Junyi42/monst3r) to prov
 - In real-world videos, **dynamic foreground objects** (e.g., moving people, vehicles) introduce noise into the feature matching process. These objects create inconsistent feature tracks, leading to errors in camera pose estimation and 3D reconstruction.
 
 
-### 3. Metric Scene Scale Alignment
+### Metric Scene Scale Alignment
 
 <div align="center">
     <img src="https://github.com/user-attachments/assets/7f1d75a1-d291-48b7-bc37-3fa8dcc95a84">
@@ -135,14 +135,35 @@ Aligning camera trajectories to a metric scale is critical when constructing dat
 #### RealEstate10K
 
 
+## Download
+
+We recommend [hfd.sh](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) for downloading.
+
+```shell
+wget https://gist.githubusercontent.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f/raw/6891c4b02f5cf3d014c7b1523556e15d9a3dd00f/hfd.sh
+chmod u+x hfd.sh
+hfd.sh MuteApo/RealCam-Vid --dataset --hf_username <YOUR_HF_USER_NAME> --hf_token <YOUR_HF_ACCESS_TOKEN>
+```
+
+Unzip downloaded zip files.
+
+```shell
+cd RealCam-Vid
+find "zip" -type f -name "*.zip" -exec sh -c '
+    for zip_file do
+        unzip $zip_file
+    done
+' sh {} +
+```
+
 ### Metadata Format
 
 We split our dataset into 2 split, namely train set (~120K) and test set (5K).
 The train/test metadata `npz` file contains a list of dicts with following key fields for each video clip:
 
 - `video_path`: relative path of the video clip with respect to the data root folder.
-- `short_caption`: short caption (<=77 tokens) provided by [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL), which is suitable for CLIP text encoders (U-Net based models).
-- `long_caption`: long caption (<=226 tokens) provided by [CogVLM2-Caption](https://github.com/THUDM/CogVideo/tree/main/tools/caption), which is suitable for T5 text encoders (DiT based models).
+- `short_caption`: short caption (<=77 tokens) provided by [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL), which is suitable for CLIP series as text encoders (U-Net based models).
+- `long_caption`: long caption (<=226 tokens) provided by [CogVLM2-Caption](https://github.com/THUDM/CogVideo/tree/main/tools/caption), which is suitable for T5 series as text encoders (DiT based models).
 - `camera_intrinsics`: quadruple of camera intrinsics in order of `fx`, `fy`, `cx`, `cy`, and their values are normalized by the corresponding `w`/`h` to accommodate varying video resolutions.
 - `camera_extrinsics`: 4x4 relative-scale world-to-camera (w2c) matrices under OpenCV/COLMAP camera convention.
 - `align_factor`: scale factor for w2c alignment from relative-scale to metric-scale.
