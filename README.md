@@ -25,9 +25,9 @@ Our curated dataset and data-processing pipeline uniquely combines **diverse sce
         <td align="center"><img src="https://github.com/user-attachments/assets/21e5cb60-b639-41ce-9a9e-477dd02500b1"></td>
     </tr>
     <tr>
-        <td align="center">Static Scene & Dynamic Camera</td>
-        <td align="center">Dynamic Scene & Static Camera</td>
-        <td align="center">Dynamic Scene & Dynamic Camera</td>
+        <td align="center">Static Scene<br>&<br>Dynamic Camera</td>
+        <td align="center">Dynamic Scene<br>&<br>Static Camera</td>
+        <td align="center">Dynamic Scene<br>&<br>Dynamic Camera</td>
     </tr>
 </table>
 
@@ -61,11 +61,20 @@ Our pipeline leverages [**MonST3R**](https://github.com/Junyi42/monst3r) to prov
 - In real-world videos, **dynamic foreground objects** (e.g., moving people, vehicles) introduce noise into the feature matching process. These objects create inconsistent feature tracks, leading to errors in camera pose estimation and 3D reconstruction.
 
 
-### Metric Scene Scale Alignment
+### Metric Scale Scene Alignment
 
-<div align="center">
-    <img src="https://github.com/user-attachments/assets/7f1d75a1-d291-48b7-bc37-3fa8dcc95a84">
-</div>
+<table>
+    <tr>
+        <td align="center"><img src="https://github.com/user-attachments/assets/1d6e3b51-2d1f-4c61-b64a-303a0a0937a6"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/8f9a373e-9b9d-4be1-9066-71bd5e383de6"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/325a9acc-33f8-4fae-8366-aa465fd1edba"></td>
+    </tr>
+    <tr>
+        <td align="center">GT Video</td>
+        <td align="center">Unaligned Preview<br>(Relative Scale)</td>
+        <td align="center">Aligned Preview<br>(Metric Scale)</td>
+    </tr>
+</table>
 
 Aligning camera trajectories to a metric scale is critical when constructing datasets from heterogeneous sources (e.g., RealEstate10K, DL3DV, MiraData).
 - **Cross-Dataset Compatibility**: Relative scales differ across datasets (e.g., "1 unit" in RealEstate10K ≠ "1 unit" in MiraData), causing misalignment and **scale ambiguity** in 3D reconstructions or motion priors.
