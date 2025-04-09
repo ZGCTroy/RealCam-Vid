@@ -8,7 +8,8 @@
 
 ## News
 
-- 25/03/26: Release our dataset [RealCam-Vid](https://huggingface.co/datasets/MuteApo/RealCam-Vid) v1 for metric-scale camera-controlled video generation, containing ~120K video clips with dedicated short/long captions and metric-scale camera annotations.
+- 25/04/08: We provide torch dataset [demo code](example.py) for example usage of our RealCam-Vid.
+- 25/03/26: Release our dataset [RealCam-Vid](https://huggingface.co/datasets/MuteApo/RealCam-Vid) v1 for metric-scale camera-controlled video generation, containing ~100K video clips with dedicated short/long captions and metric-scale camera annotations.
 - 25/02/18: Initial commit of the project, we plan to release the full dataset and data processing code in several weeks. DiT-based models (e.g., CogVideoX) trained on our dataset will be available at [RealCam-I2V](https://github.com/ZGCTroy/RealCam-I2V).
 
 ## Motivation
@@ -88,39 +89,27 @@ Aligning camera trajectories to a metric scale is critical when constructing dat
 <table>
     <tr>
         <td align="center"><img src="https://github.com/user-attachments/assets/e5309aac-285d-4ee4-803f-d1103379522e"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/815228ed-05e4-4e59-b2a9-1797f986b3e6"></td>
         <td align="center"><img src="https://github.com/user-attachments/assets/c3e6b49d-fbfd-45d6-95e4-3657c81beb52"></td>
         <td align="center"><img src="https://github.com/user-attachments/assets/b9dab160-3a31-45f6-8643-72faa9b852a0"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/d73f9a02-6608-4e1e-8a58-0346da4205c3"></td>
     </tr>
     <tr>
         <td align="center">Hotels & Accommodations</td>
-        <td align="center">Medical Facilities</td>
         <td align="center">Education Institutions</td>
         <td align="center">Restaurants & Cafes</td>
+        <td align="center">Sports & Fitness</td>
     </tr>
     <tr>
         <td align="center"><img src="https://github.com/user-attachments/assets/d3c3f739-e128-48ee-b12a-5951d1a4ac14"></td>
         <td align="center"><img src="https://github.com/user-attachments/assets/464783aa-2bd8-45aa-9f93-56e23e374cd7"></td>
         <td align="center"><img src="https://github.com/user-attachments/assets/ebb0b459-cd1f-4c4d-94bd-8cf7d9985803"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/32fea6a1-1879-4968-93b7-839618ee0340"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/5abc2523-69cd-486b-9717-caba6ee91cab"></td>
     </tr>
     <tr>
         <td align="center">Shopping Centers</td>
         <td align="center">Cultural Centers</td>
         <td align="center">Art Galleries</td>
-        <td align="center">Parks & Recreations</td>
-    </tr>
-    <tr>
-        <td align="center"><img src="https://github.com/user-attachments/assets/d73f9a02-6608-4e1e-8a58-0346da4205c3"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/fd34ba31-f8f5-4666-a2cb-e80123fa5803"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/5abc2523-69cd-486b-9717-caba6ee91cab"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/46b7e363-1f68-4393-afe6-8b84f9d783a7"></td>
-    </tr>
-    <tr>
-        <td align="center">Sports & Fitness</td>
-        <td align="center">Transportation Hubs</td>
         <td align="center">Lakes</td>
-        <td align="center">Street Views</td>
     </tr>
 </table>
 
@@ -143,15 +132,17 @@ Aligning camera trajectories to a metric scale is critical when constructing dat
 
 #### RealEstate10K
 
+## Guideline
 
-## Download
+### Download
 
 We recommend [hfd.sh](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) for downloading.
 
 ```shell
 wget https://gist.githubusercontent.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f/raw/6891c4b02f5cf3d014c7b1523556e15d9a3dd00f/hfd.sh
 chmod u+x hfd.sh
-hfd.sh MuteApo/RealCam-Vid --dataset --hf_username <YOUR_HF_USER_NAME> --hf_token <YOUR_HF_ACCESS_TOKEN>
+hfd.sh MuteApo/RealCam-Vid --dataset \
+    --hf_username <YOUR_HF_USER_NAME> --hf_token <YOUR_HF_ACCESS_TOKEN>
 ```
 
 Unzip downloaded zip files.
@@ -167,7 +158,7 @@ find "zip" -type f -name "*.zip" -exec sh -c '
 
 ### Metadata Format
 
-We split our dataset into 2 split, namely train set (~120K) and test set (5K).
+We split our dataset into 2 split, namely train set (~100K) and test set (5K).
 The train/test metadata `npz` file contains a list of dicts with following key fields for each video clip:
 
 - `video_path`: relative path of the video clip with respect to the data root folder.
@@ -179,6 +170,9 @@ The train/test metadata `npz` file contains a list of dicts with following key f
 - `camera_scale`: maximum L2 distance across all camera positions of the video clip from the first frame.
 - `vtss_score`: Video Training Suitability Score measured by [Koala-36M](https://github.com/KwaiVGI/Koala-36M).
 
+### Example Usage
+
+We provide a basic torch dataset in [i2v_camera_dataset.py](scripts/i2v_camera_dataset.py) to load RealCam-Vid metadata `npz`, including videos, captions and camera annoations. Please refer to the code for more details.
 
 ### Ethics Concerns
 
