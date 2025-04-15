@@ -177,7 +177,7 @@ The train/test metadata `npz` file contains a list of dicts with following key f
 
 We provide a basic torch dataset in [i2v_camera_dataset.py](scripts/i2v_camera_dataset.py) to load RealCam-Vid metadata `npz`, including videos, captions and camera annoations. Please refer to the code for more details.
 
-### Ethics Concerns
+## Ethics Concerns
 
 All videos of RealCam-Vid dataset are sourced from public domains, and are intended solely for informational purposes only.
 The copyright remains with the original owners of the video.
@@ -185,7 +185,7 @@ Our institution are not responsible for the content nor the meaning of these vid
 If you have any concerns, please contact [us](mailto:guangcongzheng\@zju.edu.cn) and we will promptly remove them.
 
 
-### Related Projects
+## Related Projects
 
 - [RealEstate10K](https://google.github.io/realestate10k)
 - [DL3DV](https://dl3dv-10k.github.io/DL3DV-10K)
@@ -194,7 +194,7 @@ If you have any concerns, please contact [us](mailto:guangcongzheng\@zju.edu.cn)
 - [RealCam-I2V](https://zgctroy.github.io/RealCam-I2V)
 - [CamI2V](https://zgctroy.github.io/CamI2V)
 
-### Citations
+## Citations
 
 ```
 @article{zheng2025realcam,

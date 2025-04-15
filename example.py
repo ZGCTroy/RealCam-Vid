@@ -16,5 +16,5 @@ dataset = I2VDatasetWithResize(
 )
 
 for data in dataset:
-    pprint({k: v.shape if isinstance(v, Tensor) else v for k, v in data.items()})
+    pprint({k: v.shape if isinstance(v, Tensor) else v for k, v in data.items()}, sort_dicts=False)
     break
