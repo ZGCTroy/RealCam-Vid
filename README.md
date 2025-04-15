@@ -1,23 +1,24 @@
 # RealCam-Vid Dataset
 
 <div align="center">
-    <!-- <a href="https://arxiv.org/abs/2410.15957"><img src="https://img.shields.io/static/v1?label=arXiv&message=2410.15957&color=b21d1a"></a> -->
+    <a href="https://arxiv.org/abs/2504.08212"><img src="https://img.shields.io/static/v1?label=arXiv&message=2504.08212&color=b21d1a"></a>
     <a href="https://github.com/ZGCTroy/RealCam-Vid"><img src="https://img.shields.io/static/v1?label=GitHub&message=Repo&color=green"></a>
     <a href="https://huggingface.co/datasets/MuteApo/RealCam-Vid"><img src="https://img.shields.io/static/v1?label=HuggingFace&message=Dataset&color=blue"></a>
 </div>
 
 ## News
 
-- 25/04/08: We provide torch dataset [demo code](example.py) for example usage of our RealCam-Vid.
+- 25/04/14: We release [technical report](https://arxiv.org/abs/2504.08212) of RealCam-Vid!
+- 25/04/08: We provide torch dataset [demo code](example.py) for example usage of RealCam-Vid!
 - 25/03/26: Release our dataset [RealCam-Vid](https://huggingface.co/datasets/MuteApo/RealCam-Vid) v1 for metric-scale camera-controlled video generation, containing ~100K video clips with dedicated short/long captions and metric-scale camera annotations.
-- 25/02/18: Initial commit of the project, we plan to release the full dataset and data processing code in several weeks. DiT-based models (e.g., CogVideoX) trained on our dataset will be available at [RealCam-I2V](https://github.com/ZGCTroy/RealCam-I2V).
+- 25/02/18: Initial commit of the project. DiT-based models (e.g., CogVideoX) trained on our dataset will be available at [RealCam-I2V](https://github.com/ZGCTroy/RealCam-I2V).
 
 ## Motivation
 
 Current datasets for camera-controllable video generation face critical limitations that hinder the development of robust and versatile models. 
 Our curated dataset and data-processing pipeline uniquely combines **diverse scene dynamics** with **metric-scale camera trajectories**, enabling generative models to learn both scene dynamics and camera motion in a unified framework.
 
-### Training Data Variation
+### Video Data Variations
 
 <table>
     <tr>
@@ -62,7 +63,7 @@ Our pipeline leverages [**MonST3R**](https://github.com/Junyi42/monst3r) to prov
 - In real-world videos, **dynamic foreground objects** (e.g., moving people, vehicles) introduce noise into the feature matching process. These objects create inconsistent feature tracks, leading to errors in camera pose estimation and 3D reconstruction.
 
 
-### Metric Scale Scene Alignment
+### Metric-scale Scene Alignment
 
 <table>
     <tr>
@@ -137,15 +138,17 @@ Aligning camera trajectories to a metric scale is critical when constructing dat
 ### Download
 
 We recommend [hfd.sh](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) for downloading.
+Total stoarge approximation: DL3DV-10K (~74G), RealEstate10K(~75G), MiraData9K(~78G).
 
 ```shell
 wget https://gist.githubusercontent.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f/raw/6891c4b02f5cf3d014c7b1523556e15d9a3dd00f/hfd.sh
 chmod u+x hfd.sh
-hfd.sh MuteApo/RealCam-Vid --dataset \
+~/hfd.sh MuteApo/RealCam-Vid --dataset \
     --hf_username <YOUR_HF_USER_NAME> --hf_token <YOUR_HF_ACCESS_TOKEN>
 ```
 
 Unzip downloaded zip files.
+Each zip file contains several video clips with corresponding entries in metadata.
 
 ```shell
 cd RealCam-Vid
@@ -194,6 +197,13 @@ If you have any concerns, please contact [us](mailto:guangcongzheng\@zju.edu.cn)
 ### Citations
 
 ```
+@article{zheng2025realcam,
+    title={RealCam-Vid: High-resolution Video Dataset with Dynamic Scenes and Metric-scale Camera Movements}, 
+    author={Zheng, Guangcong and Li, Teng and Zhou, Xianpan and Li, Xi},
+    journal={arXiv preprint arXiv:2504.08212},
+    year={2025},
+}
+
 @article{li2025realcam,
     title={RealCam-I2V: Real-World Image-to-Video Generation with Interactive Complex Camera Control}, 
     author={Li, Teng and Zheng, Guangcong and Jiang, Rui and Zhan, Shuigen and Wu, Tao and Lu, Yehao and Lin, Yining and Li, Xi},
