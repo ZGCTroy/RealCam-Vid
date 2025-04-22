@@ -139,6 +139,7 @@ Aligning camera trajectories to a metric scale is critical when constructing dat
 
 We recommend [hfd.sh](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) for downloading.
 Total stoarge approximation: DL3DV-10K (~74G), RealEstate10K(~75G), MiraData9K(~78G).
+Get Huggingface Access Token from [here](https://huggingface.co/settings/tokens) .
 
 ```shell
 wget https://gist.githubusercontent.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f/raw/6891c4b02f5cf3d014c7b1523556e15d9a3dd00f/hfd.sh
