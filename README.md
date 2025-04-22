@@ -143,6 +143,8 @@ Total stoarge approximation: DL3DV-10K (~74G), RealEstate10K(~75G), MiraData9K(~
 ```shell
 wget https://gist.githubusercontent.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f/raw/6891c4b02f5cf3d014c7b1523556e15d9a3dd00f/hfd.sh
 chmod u+x hfd.sh
+sudo apt-get update
+sudo apt-get install aria2
 ~/hfd.sh MuteApo/RealCam-Vid --dataset \
     --hf_username <YOUR_HF_USER_NAME> --hf_token <YOUR_HF_ACCESS_TOKEN>
 ```
